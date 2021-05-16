@@ -1,0 +1,16 @@
+version: "3"
+
+services: 
+  sentinel-dashboard:
+    image: ricardozhuo/sentinel-dashboard:1.8.1
+    container_name: RaspberryPi-Sentinel-Dashboard
+    restart: on-failure
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "20001:8080"
+    environment: 
+      - JAVA_OPTS=-Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -Dcsp.sentinel.api.port=10002 -Djava.security.egd=file:/dev/./urandom
+    volumes: 
+      - /var/log/sentinel-dashboard:/root/logs/csp
